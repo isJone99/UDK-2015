@@ -31,107 +31,66 @@ pushd .
 cd %~dp0
 
 if not defined WORKSPACE (
-  goto SetWorkSpace
+  @REM set new workspace
+  @REM set EDK_TOOLS_PATH
+  @REM clear EFI_SOURCE and EDK_SOURCE for the new workspace
+  set WORKSPACE=%CD%
+  set EFI_SOURCE=
+  set EDK_SOURCE=
 )
-
+set PYTHON_HOME=C:\Unix\Python
+set EDK_TOOLS_PATH=%WORKSPACE%\BaseTools
 if %WORKSPACE% == %CD% (
   @REM Workspace is not changed.
   goto ParseArgs
+) else (
+  echo WARNING: Workspace is not where edksetup in!
 )
 
-:SetWorkSpace
-@REM set new workspace
-@REM clear EFI_SOURCE and EDK_SOURCE for the new workspace
-set WORKSPACE=%CD%
-set EFI_SOURCE=
-set EDK_SOURCE=
-
 :ParseArgs
-if /I "%1"=="-h" goto Usage
-if /I "%1"=="-help" goto Usage
-if /I "%1"=="--help" goto Usage
-if /I "%1"=="/h" goto Usage
-if /I "%1"=="/?" goto Usage
-if /I "%1"=="/help" goto Usage
+if /I "%1"=="-h"      goto Usage
+if /I "%1"=="-help"   goto Usage
+if /I "%1"=="/h"      goto Usage
+if /I "%1"=="/help"   goto Usage
+if /I "%1"=="?"       goto Usage
+if /I "%1"=="--help"  goto Usage
+if /I "%1"=="--nt32" (goto NT32) else (goto NoNT32)
 
-if /I not "%1"=="--nt32" goto no_nt32
-
-@REM Flag, --nt32 is set
-@REM The Nt32 Emluation Platform requires Microsoft Libraries
-@REM and headers to interface with Windows.
-
+:NT32
+@REM When flag --nt32 is set:
+@REM The Nt32 Emluation Platform requires Microsoft Libraries and headers to interface with Windows.
 if not defined VCINSTALLDIR (
   if defined VS120COMNTOOLS (
     call "%VS120COMNTOOLS%\vsvars32.bat"
+  ) else if defined VS110COMNTOOLS (
+    call "%VS110COMNTOOLS%\vsvars32.bat"
+  ) else if defined VS100COMNTOOLS (
+    call "%VS100COMNTOOLS%\vsvars32.bat"
+  ) else if defined VS90COMNTOOLS (
+    call "%VS90COMNTOOLS%\vsvars32.bat"
   ) else (
-    if defined VS110COMNTOOLS (
-      call "%VS110COMNTOOLS%\vsvars32.bat"
-    ) else (
-      if defined VS100COMNTOOLS (
-        call "%VS100COMNTOOLS%\vsvars32.bat"
-      ) else (
-        if defined VS90COMNTOOLS (
-          call "%VS90COMNTOOLS%\vsvars32.bat"
-        ) else (
-          if defined VS80COMNTOOLS (
-            call "%VS80COMNTOOLS%\vsvars32.bat"
-          ) else (
-            if defined VS71COMNTOOLS (
-              call "%VS71COMNTOOLS%\vsvars32.bat"
-            ) else (
-              echo.
-              echo !!! WARNING !!! Cannot find Visual Studio !!!
-              echo.
-            )
-          )
-        )
-      )
-    )
+    echo.
+    echo !!! WARNING !!! Cannot find Visual Studio !!!
+    echo.
   )
 )
-shift
 
-:no_nt32
-if /I "%1"=="NewBuild" shift
-set EDK_TOOLS_PATH=%WORKSPACE%\BaseTools
-IF NOT EXIST "%EDK_TOOLS_PATH%\toolsetup.bat" goto BadBaseTools
-call %EDK_TOOLS_PATH%\toolsetup.bat %*
-if /I "%1"=="Reconfig" shift
-goto check_cygwin
+:NoNT32
+if exist "%EDK_TOOLS_PATH%\toolsetup.bat" (call %EDK_TOOLS_PATH%\toolsetup.bat %*) else (goto BadBaseTools)
+:Loop
+  if "%1"=="" (goto End) else (shift)
+goto Loop
 
 :BadBaseTools
   @REM
-  REM Need the BaseTools Package in order to build
+  @REM Need the BaseTools Package in order to build
   @REM
   @echo.
   @echo !!! ERROR !!! The BaseTools Package was not found !!!
   @echo.
-  @echo Set the system environment variable, EDK_TOOLS_PATH to the BaseTools,
-  @echo For example,
-  @echo   set EDK_TOOLS_PATH=C:\MyTools\BaseTools
-  @echo The setup script, toolsetup.bat must reside in this folder.
+  @echo The script toolsetup.bat must reside in this folder.
   @echo.
-  goto end
-
-:check_cygwin
-if defined CYGWIN_HOME (
-  if not exist "%CYGWIN_HOME%" (
-    @echo.
-    @echo !!! WARNING !!! CYGWIN_HOME not found, gcc build may not be used !!!
-    @echo.
-  )
-) else (
-  if exist c:\cygwin (
-    set CYGWIN_HOME=c:\cygwin
-  ) else (
-    @echo.
-    @echo !!! WARNING !!! No CYGWIN_HOME set, gcc build may not be used !!!
-    @echo.
-  )
-)
-
-:cygwin_done
-if "%1"=="" goto end
+goto End
 
 :Usage
   @echo.
@@ -144,8 +103,8 @@ if "%1"=="" goto end
   @echo  will only be copied to target.txt, tools_def.txt and build_rule.txt
   @echo  respectively if they do not exist. Use option [Reconfig] to force the copy.
   @echo.
-  goto end
+goto End
 
-:end
+:End
   popd
 

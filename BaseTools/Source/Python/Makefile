@@ -16,11 +16,8 @@
 !ENDIF
 
 !IF EXIST ($(PYTHON_FREEZER_PATH)\cxfreeze)
-# Using cx_Freeze 4.2.3 with Python 2.7.2
+# Using cx_Freeze 4.0 and above with Python 2.5 and above
 FREEZE=$(PYTHON_FREEZER_PATH)\cxfreeze
-!ELSE
-# Using cx_Freeze 3.0.3 with Python 2.5.4
-FREEZE=$(PYTHON_FREEZER_PATH)\FreezePython.exe
 !ENDIF
 
 MODULES=encodings.cp437,encodings.gbk,encodings.utf_16,encodings.utf_8,encodings.utf_16_le,encodings.latin_1,encodings.ascii
