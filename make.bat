@@ -58,24 +58,35 @@ if /I "%1"=="--help"  goto error
     set RunFlag=TRUE
     shift
     goto loop
+  ) else if /I "%1"=="clean" (
+    set CleanFlag=TRUE
+    shift
+    goto loop
   )
 ::endloop
 
 if NOT defined EdkSetupFlag (
-  call edksetup.bat --nt32 %EdkSetupOption%
   set EdkSetupFlag=TRUE
+  call edksetup.bat --nt32 %EdkSetupOption%
 ) else if defined EdkSetupOption (
   call edksetup.bat --nt32 %EdkSetupOption%
 )
 
-if defined RunFlag goto run
+if defined RunFlag      goto run
+if defined CleanFlag    goto clean
 
 :build
   build %PLATFORMFILE% %BUILDTARGET% %TARGETARCH% %TOOLCHAIN%
 goto end
 
 :run
+  set RunFlag=
   build run %PLATFORMFILE% %BUILDTARGET% %TARGETARCH% %TOOLCHAIN%
+goto end
+
+:clean
+  set CleanFlag=
+  if exist Build rmdir /S /Q Build
 goto end
 
 :error
@@ -104,5 +115,4 @@ goto end
   set    BUILDTARGET=
   set     TARGETARCH=
   set      TOOLCHAIN=
-  set        RunFlag=
   exit /B %SCRIPT_ERROR%
