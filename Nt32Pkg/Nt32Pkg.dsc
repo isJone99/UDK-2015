@@ -233,11 +233,18 @@
   gEfiMdeModulePkgTokenSpaceGuid.PcdMaxSizePopulateCapsule|0x0
   gEfiMdePkgTokenSpaceGuid.PcdDebugPrintErrorLevel|0x80000040
   gEfiNt32PkgTokenSpaceGuid.PcdWinNtFirmwareFdSize|0x2a0000
-  gEfiMdePkgTokenSpaceGuid.PcdDebugPropertyMask|0x1f
   gEfiNt32PkgTokenSpaceGuid.PcdWinNtFirmwareVolume|L"..\\Fv\\Nt32.fd"
   gEfiNt32PkgTokenSpaceGuid.PcdWinNtFirmwareBlockSize|0x10000
-  gEfiMdePkgTokenSpaceGuid.PcdReportStatusCodePropertyMask|0x0f
   gEfiMdeModulePkgTokenSpaceGuid.PcdResetOnMemoryTypeInformationChange|FALSE
+
+!if $(TARGET) == "RELEASE"
+  gEfiMdePkgTokenSpaceGuid.PcdDebugPropertyMask|0x0
+  gEfiMdePkgTokenSpaceGuid.PcdReportStatusCodePropertyMask|0x0
+!else
+  gEfiMdePkgTokenSpaceGuid.PcdDebugPropertyMask|0x1f
+  gEfiMdePkgTokenSpaceGuid.PcdReportStatusCodePropertyMask|0x0f
+!endif
+
 !if $(SECURE_BOOT_ENABLE) == TRUE
   gEfiMdeModulePkgTokenSpaceGuid.PcdMaxVariableSize|0x2000
 !endif
