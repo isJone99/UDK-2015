@@ -296,15 +296,16 @@ goto End
   goto End
 
 :Usage
-  @echo.
+  echo.
   echo  Usage: "%0 [-h | -help | --help | /h | /help | /?] [ Rebuild | ForceRebuild ] [Reconfig] [base_tools_path [edk_tools_path]]"
-  @echo.
-  @echo         base_tools_path   BASE_TOOLS_PATH will be set to this path. 
-  @echo         edk_tools_path    EDK_TOOLS_PATH will be set to this path.
-  @echo         Rebuild           If sources are available perform an Incremental build, only build those updated tools.
-  @echo         ForceRebuild      If sources are available, rebuild all tools regardless of whether they have been updated or NOT.
-  @echo         Reconfig          Reinstall target.txt, tools_def.txt and build_rule.txt.
-  @echo.
+  echo.
+  echo         base_tools_path    --BASE_TOOLS_PATH will be set to this path. 
+  echo         edk_tools_path     --EDK_TOOLS_PATH will be set to this path.
+  echo         Reconfig           --Use tempalte to reconfig EDKII build option.
+  echo         RawTools           --Use python scripts as basetools.
+  echo         RebuildTools       --Use makefile rules to rebuild basetools.
+  echo         BuildTools         --Clean and rebuild basetools.
+  echo.
 
 :End
 set Reconfig=
