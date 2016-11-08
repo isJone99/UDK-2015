@@ -25,13 +25,8 @@
 
 :CheckLatest
 echo.
-@if defined VS120COMNTOOLS (
-   @set "COMMONTOOLSx64=C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\x86_amd64"
-   @goto SetVs
-)
-
-@if defined VS110COMNTOOLS (
-   @set "COMMONTOOLSx64=C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\x86_amd64"
+@if defined VS140COMNTOOLS (
+   @set "COMMONTOOLSx64=C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin\x86_amd64"
    @goto SetVs
 )
 

@@ -107,25 +107,14 @@ if defined SRC_CONF @goto SetEnv
     @goto :EOF
 )
 
-@set "TEST_VS=C:\Program Files (x86)\Microsoft Visual Studio 11.0\"
+@set "TEST_VS=C:\Program Files (x86)\Microsoft Visual Studio 14.0\"
 @if "%VSINSTALLDIR%"=="%TEST_VS%" (
-    @echo     TOOL_CHAIN_TAG       = VS2012x86
+    @echo     TOOL_CHAIN_TAG       = VS2015x86
     @goto :EOF
 )
-@set "TEST_VS=C:\Program Files\Microsoft Visual Studio 11.0\"
+@set "TEST_VS=C:\Program Files\Microsoft Visual Studio 14.0\"
 @if "%VSINSTALLDIR%"=="%TEST_VS%" (
-    @echo     TOOL_CHAIN_TAG       = VS2012
-    @goto :EOF
-)
-
-@set "TEST_VS=C:\Program Files (x86)\Microsoft Visual Studio 12.0\"
-@if "%VSINSTALLDIR%"=="%TEST_VS%" (
-    @echo     TOOL_CHAIN_TAG       = VS2013x86
-    @goto :EOF
-)
-@set "TEST_VS=C:\Program Files\Microsoft Visual Studio 12.0\"
-@if "%VSINSTALLDIR%"=="%TEST_VS%" (
-    @echo     TOOL_CHAIN_TAG       = VS2013
+    @echo     TOOL_CHAIN_TAG       = VS2015
     @goto :EOF
 )
 @goto :EOF

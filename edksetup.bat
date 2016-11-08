@@ -60,10 +60,8 @@ if /I "%1"=="--nt32" (goto NT32) else (goto NoNT32)
 @REM When flag --nt32 is set:
 @REM The Nt32 Emluation Platform requires Microsoft Libraries and headers to interface with Windows.
 if not defined VCINSTALLDIR (
-  if defined VS120COMNTOOLS (
-    call "%VS120COMNTOOLS%\vsvars32.bat"
-  ) else if defined VS110COMNTOOLS (
-    call "%VS110COMNTOOLS%\vsvars32.bat"
+  if defined VS140COMNTOOLS (
+    call "%VS140COMNTOOLS%\vsvars32.bat"
   ) else if defined VS100COMNTOOLS (
     call "%VS100COMNTOOLS%\vsvars32.bat"
   ) else if defined VS90COMNTOOLS (

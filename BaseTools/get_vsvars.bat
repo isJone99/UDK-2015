@@ -34,13 +34,8 @@ REM       (Or invoke the relevant vsvars32 file beforehand).
 :main
 if defined VCINSTALLDIR goto :done
   if defined VS140COMNTOOLS  call :read_vsvars  "%VS140COMNTOOLS%"
-  if defined VS130COMNTOOLS  call :read_vsvars  "%VS130COMNTOOLS%"
-  if defined VS120COMNTOOLS  call :read_vsvars  "%VS120COMNTOOLS%"
-  if defined VS110COMNTOOLS  call :read_vsvars  "%VS110COMNTOOLS%"
   if defined VS100COMNTOOLS  call :read_vsvars  "%VS100COMNTOOLS%"
   if defined VS90COMNTOOLS   call :read_vsvars  "%VS90COMNTOOLS%"
-  if defined VS80COMNTOOLS   call :read_vsvars  "%VS80COMNTOOLS%"
-  if defined VS71COMNTOOLS   call :read_vsvars  "%VS71COMNTOOLS%"
 
 :done
 set GET_VSVARS_BAT_CHECK_DIR=
