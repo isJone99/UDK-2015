@@ -49,9 +49,6 @@ DEFINE VS2015x86_BINX64           = DEF(VS2015x86_BIN)\x86_amd64
 DEFINE EBC_BIN                    = C:\Program Files\Intel\EBC\Bin
 DEFINE EBC_BINx86                 = C:\Program Files (x86)\Intel\EBC\Bin
 
-# ELF
-DEFINE ELFGCC_BIN                 = /usr/bin
-
 # WINDDK
 DEFINE WINDDK_BIN16               = C:\WINDDK\3790.1830\bin\bin16
 DEFINE WINDDK_BIN32               = C:\WINDDK\3790.1830\bin\x86
@@ -224,13 +221,6 @@ DEFINE MSFT_ASLDLINK_FLAGS        = /NODEFAULTLIB /ENTRY:ReferenceAcpiTable /SUB
 #                             Required to build platforms or ACPI tables:
 #                               Microsoft ASL ACPI Compiler (asl.exe) v4.0.0 from
 #                               http://download.microsoft.com/download/2/c/1/2c16c7e0-96c1-40f5-81fc-3e4bf7b65496/microsoft_asl_compiler-v4-0-0.msi
-#   UNIXGCC     -UNIX-   Requires:
-#                             GCC 4.3.0
-#                             binutils 2.20.51.0.5
-#                        Optional:
-#                             Required to build platforms or ACPI tables:
-#                               Intel(r) ACPI Compiler from
-#                               https://acpica.org/downloads
 #   GCC54       -Linux,Windows-  Requires:
 #                             GCC 4.4 targeting x86_64-linux-gnu
 #                        Optional:
@@ -239,12 +229,6 @@ DEFINE MSFT_ASLDLINK_FLAGS        = /NODEFAULTLIB /ENTRY:ReferenceAcpiTable /SUB
 #                               https://acpica.org/downloads
 #   XCLANG      -Linux,Windows-  Requires:
 #                             OSX Clang, and GNU binutils targeting aarch64-linux-gnu
-#                        Optional:
-#                             Required to build platforms or ACPI tables:
-#                               Intel(r) ACPI Compiler from
-#                               https://acpica.org/downloads
-#   ELFGCC      -Linux-  Requires:
-#                             GCC(this tool chain uses whatever version of gcc and binutils that is installed in /usr/bin)
 #                        Optional:
 #                             Required to build platforms or ACPI tables:
 #                               Intel(r) ACPI Compiler from
@@ -2286,94 +2270,6 @@ DEFINE GCC54_AARCH64_ASLDLINK_FLAGS     = DEF(GCC_AARCH64_ASLDLINK_FLAGS)
 
 ####################################################################################
 #
-# Unix GCC And Intel Linux ACPI Compiler
-#
-####################################################################################
-#   UNIXGCC         - UNIX GCC
-#   ASL             - Intel Linux ACPI Source Language Compiler (iasl)
-*_UNIXGCC_*_*_FAMILY              = GCC
-
-*_UNIXGCC_*_MAKE_PATH             = make
-*_UNIXGCC_*_ASL_PATH              = DEF(UNIX_IASL_BIN)
-
-*_UNIXGCC_IA32_DLINK_FLAGS        = DEF(GCC_IA32_X64_DLINK_FLAGS) --image-base=0
-*_UNIXGCC_X64_DLINK_FLAGS         = DEF(GCC_IA32_X64_DLINK_FLAGS) --image-base=0
-*_UNIXGCC_IA32_ASLDLINK_FLAGS     = DEF(GCC_IA32_X64_ASLDLINK_FLAGS)
-*_UNIXGCC_X64_ASLDLINK_FLAGS      = DEF(GCC_IA32_X64_ASLDLINK_FLAGS)
-*_UNIXGCC_*_ASM_FLAGS             = DEF(GCC_ASM_FLAGS)
-*_UNIXGCC_*_PP_FLAGS              = DEF(GCC_PP_FLAGS)
-*_UNIXGCC_*_ASLPP_FLAGS           = DEF(GCC_ASLPP_FLAGS)
-*_UNIXGCC_*_ASLCC_FLAGS           = DEF(GCC_ASLCC_FLAGS)
-*_UNIXGCC_*_VFRPP_FLAGS           = DEF(GCC_VFRPP_FLAGS)
-*_UNIXGCC_*_APP_FLAGS             =
-*_UNIXGCC_*_ASL_FLAGS             = DEF(IASL_FLAGS)
-*_UNIXGCC_*_ASL_OUTFLAGS          = DEF(IASL_OUTFLAGS)
-
-##################
-# IA32 definitions
-##################
-*_UNIXGCC_IA32_OBJCOPY_PATH       = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)objcopy
-*_UNIXGCC_IA32_PP_PATH            = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IA32_CC_PATH            = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IA32_SLINK_PATH         = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)ar
-*_UNIXGCC_IA32_DLINK_PATH         = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)ld
-*_UNIXGCC_IA32_ASLPP_PATH         = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IA32_ASLCC_PATH         = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IA32_ASLDLINK_PATH      = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)ld
-*_UNIXGCC_IA32_ASM_PATH           = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IA32_VFRPP_PATH         = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IA32_RC_PATH            = DEF(UNIXGCC_IA32_PETOOLS_PREFIX)objcopy
-
-*_UNIXGCC_IA32_CC_FLAGS           = DEF(GCC_IA32_CC_FLAGS)
-*_UNIXGCC_IA32_RC_FLAGS           = DEF(GCC_IA32_RC_FLAGS)
-*_UNIXGCC_IA32_OBJCOPY_FLAGS      =
-*_UNIXGCC_IA32_NASM_FLAGS         = -f win32
-
-##################
-# X64 definitions
-##################
-*_UNIXGCC_X64_CC_PATH             = DEF(UNIXGCC_X64_PETOOLS_PREFIX)gcc
-*_UNIXGCC_X64_ASLCC_PATH          = DEF(UNIXGCC_X64_PETOOLS_PREFIX)gcc
-*_UNIXGCC_X64_SLINK_PATH          = DEF(UNIXGCC_X64_PETOOLS_PREFIX)ar
-*_UNIXGCC_X64_DLINK_PATH          = DEF(UNIXGCC_X64_PETOOLS_PREFIX)ld
-*_UNIXGCC_X64_ASLDLINK_PATH       = DEF(UNIXGCC_X64_PETOOLS_PREFIX)ld
-*_UNIXGCC_X64_ASM_PATH            = DEF(UNIXGCC_X64_PETOOLS_PREFIX)gcc
-*_UNIXGCC_X64_PP_PATH             = DEF(UNIXGCC_X64_PETOOLS_PREFIX)gcc
-*_UNIXGCC_X64_ASLPP_PATH          = DEF(UNIXGCC_X64_PETOOLS_PREFIX)gcc
-*_UNIXGCC_X64_VFRPP_PATH          = DEF(UNIXGCC_X64_PETOOLS_PREFIX)gcc
-*_UNIXGCC_X64_RC_PATH             = DEF(UNIXGCC_X64_PETOOLS_PREFIX)objcopy
-*_UNIXGCC_X64_OBJCOPY_PATH        = DEF(UNIXGCC_X64_PETOOLS_PREFIX)objcopy
-
-*_UNIXGCC_X64_CC_FLAGS            = DEF(GCC_X64_CC_FLAGS)
-*_UNIXGCC_X64_RC_FLAGS            = DEF(GCC_X64_RC_FLAGS)
-*_UNIXGCC_X64_OBJCOPY_FLAGS       =
-*_UNIXGCC_X64_NASM_FLAGS          = -f win64
-
-##################
-# IPF definitions
-##################
-*_UNIXGCC_IPF_CC_PATH             = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IPF_ASLCC_PATH          = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IPF_SLINK_PATH          = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)ar
-*_UNIXGCC_IPF_DLINK_PATH          = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)ld
-*_UNIXGCC_IPF_ASLDLINK_PATH       = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)ld
-*_UNIXGCC_IPF_ASM_PATH            = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IPF_PP_PATH             = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IPF_ASLPP_PATH          = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IPF_VFRPP_PATH          = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)gcc
-*_UNIXGCC_IPF_OBJCOPY_PATH        = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)objcopy
-*_UNIXGCC_IPF_SYMRENAME_PATH      = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)objcopy
-*_UNIXGCC_IPF_RC_PATH             = DEF(UNIXGCC_IPF_PETOOLS_PREFIX)objcopy
-
-*_UNIXGCC_IPF_CC_FLAGS            = DEF(GCC_IPF_CC_FLAGS)
-*_UNIXGCC_IPF_DLINK_FLAGS         = DEF(GCC_IPF_DLINK_FLAGS)
-*_UNIXGCC_IPF_OBJCOPY_FLAGS       = DEF(GCC_IPF_OBJCOPY_FLAGS)
-*_UNIXGCC_IPF_SYMRENAME_FLAGS     = DEF(GCC_IPF_SYMRENAME_FLAGS)
-*_UNIXGCC_IPF_RC_FLAGS            = DEF(GCC_IPF_RC_FLAGS)
-
-
-####################################################################################
-#
 # GCC 5.4 - This configuration is used to compile under Linux to produce
 #           PE/COFF binaries using GCC 5.4.
 #
@@ -2497,100 +2393,6 @@ RELEASE_GCC54_ARM_CC_FLAGS        = DEF(GCC54_ARM_CC_FLAGS) -Wno-unused-but-set-
 
   DEBUG_GCC54_AARCH64_CC_FLAGS    = DEF(GCC54_AARCH64_CC_FLAGS) -O0
 RELEASE_GCC54_AARCH64_CC_FLAGS    = DEF(GCC54_AARCH64_CC_FLAGS) -Wno-unused-but-set-variable
-
-
-####################################################################################
-#
-# Elf GCC - This configuration is used to compile on Linux boxes to produce elf binaries.
-#
-####################################################################################
-#   ELFGCC           - Linux ELF GCC
-*_ELFGCC_*_*_FAMILY               = GCC
-*_ELFGCC_*_MAKE_PATH              = make
-
-*_ELFGCC_*_PP_FLAGS               = -E -x assembler-with-cpp -include AutoGen.h
-*_ELFGCC_*_VFRPP_FLAGS            = -x c -E -P -DVFRCOMPILE --include $(MODULE_NAME)StrDefs.h
-
-##################
-# ASL definitions
-##################
-*_ELFGCC_*_ASL_PATH               = DEF(UNIX_IASL_BIN)
-*_ELFGCC_*_ASL_FLAGS              = DEF(IASL_FLAGS)
-*_ELFGCC_*_ASL_OUTFLAGS           = DEF(IASL_OUTFLAGS)
-*_ELFGCC_*_ASLPP_FLAGS            = -x c -E -P
-*_ELFGCC_*_ASLCC_FLAGS            = -x c
-*_ELFGCC_*_ASLDLINK_FLAGS         = DEF(GCC_DLINK_FLAGS_COMMON) --entry _ReferenceAcpiTable
-
-##################
-# IA32 definitions
-##################
-*_ELFGCC_IA32_OBJCOPY_PATH        = DEF(ELFGCC_BIN)/objcopy
-*_ELFGCC_IA32_CC_PATH             = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IA32_SLINK_PATH          = DEF(ELFGCC_BIN)/ar
-*_ELFGCC_IA32_DLINK_PATH          = DEF(ELFGCC_BIN)/ld
-*_ELFGCC_IA32_ASM_PATH            = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IA32_PP_PATH             = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IA32_VFRPP_PATH          = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IA32_ASLCC_PATH          = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IA32_ASLPP_PATH          = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IA32_ASLDLINK_PATH       = DEF(ELFGCC_BIN)/ld
-*_ELFGCC_IA32_RC_PATH             = DEF(ELFGCC_BIN)/objcopy
-
-*_ELFGCC_IA32_CC_FLAGS            = -m32 -g -fshort-wchar -fno-strict-aliasing -Wall -malign-double -c -include $(DEST_DIR_DEBUG)/AutoGen.h -DSTRING_ARRAY_NAME=$(BASE_NAME)Strings
-*_ELFGCC_IA32_SLINK_FLAGS         =
-*_ELFGCC_IA32_DLINK_FLAGS         = -melf_i386 -nostdlib --shared --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map
-#*_ELFGCC_IA32_DLINK_FLAGS        = -melf_i386 -nostdlib -n -q -Ttext 0x220 --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT)
-*_ELFGCC_IA32_ASM_FLAGS           = -m32 -c -x assembler -imacros $(DEST_DIR_DEBUG)/AutoGen.h
-*_ELFGCC_IA32_PP_FLAGS            = -m32 -E -x assembler-with-cpp -include $(DEST_DIR_DEBUG)/AutoGen.h
-*_ELFGCC_IA32_VFRPP_FLAGS         = -x c -E -P -DVFRCOMPILE --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)StrDefs.h
-*_ELFGCC_IA32_RC_FLAGS            = DEF(GCC_IA32_RC_FLAGS)
-*_ELFGCC_IA32_OBJCOPY_FLAGS       =
-*_ELFGCC_IA32_NASM_FLAGS          = -f elf32
-
-##################
-# X64 definitions
-##################
-*_ELFGCC_X64_CC_PATH              = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_X64_ASLCC_PATH           = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_X64_SLINK_PATH           = DEF(ELFGCC_BIN)/ar
-*_ELFGCC_X64_DLINK_PATH           = DEF(ELFGCC_BIN)/ld
-*_ELFGCC_X64_ASLDLINK_PATH        = DEF(ELFGCC_BIN)/ld
-*_ELFGCC_X64_ASM_PATH             = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_X64_PP_PATH              = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_X64_ASLPP_PATH           = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_X64_VFRPP_PATH           = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_X64_RC_PATH              = DEF(ELFGCC_BIN)/objcopy
-
-*_ELFGCC_X64_CC_FLAGS             = -Os -fshort-wchar -fno-strict-aliasing -Wall -Werror -Wno-address -Wno-array-bounds -c -include AutoGen.h -D_EFI_P64
-*_ELFGCC_X64_DLINK_FLAGS          = -nostdlib --shared --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map
-*_ELFGCC_X64_SLINK_FLAGS          =
-*_ELFGCC_X64_ASM_FLAGS            = -c -x assembler -imacros $(DEST_DIR_DEBUG)/AutoGen.h
-*_ELFGCC_X64_PP_FLAGS             = -E -x assembler-with-cpp -include $(DEST_DIR_DEBUG)/AutoGen.h
-*_ELFGCC_X64_VFRPP_FLAGS          = -x c -E -P -DVFRCOMPILE --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)StrDefs.h
-*_ELFGCC_X64_RC_FLAGS             = DEF(GCC_X64_RC_FLAGS)
-*_ELFGCC_X64_NASM_FLAGS           = -f elf64
-
-##################
-# IPF definitions
-##################
-*_ELFGCC_IPF_CC_PATH              = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IPF_ASLCC_PATH           = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IPF_SLINK_PATH           = DEF(ELFGCC_BIN)/ar
-*_ELFGCC_IPF_DLINK_PATH           = DEF(ELFGCC_BIN)/ld
-*_ELFGCC_IPF_ASLDLINK_PATH        = DEF(ELFGCC_BIN)/ld
-*_ELFGCC_IPF_ASM_PATH             = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IPF_PP_PATH              = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IPF_ASLPP_PATH           = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IPF_VFRPP_PATH           = DEF(ELFGCC_BIN)/gcc
-*_ELFGCC_IPF_RC_PATH              = DEF(ELFGCC_BIN)/objcopy
-
-*_ELFGCC_IPF_CC_FLAGS             = -Os -fshort-wchar -Wall -Werror -c -include AutoGen.h -D_EFI_P64
-*_ELFGCC_IPF_DLINK_FLAGS          = -nostdlib --shared --entry $(IMAGE_ENTRY_POINT) -u $(IMAGE_ENTRY_POINT) -Map $(DEST_DIR_DEBUG)/$(BASE_NAME).map
-*_ELFGCC_IPF_SLINK_FLAGS          =
-*_ELFGCC_IPF_ASM_FLAGS            = -c -x assembler -imacros $(DEST_DIR_DEBUG)/AutoGen.h
-*_ELFGCC_IPF_PP_FLAGS             = -E -x assembler-with-cpp -include $(DEST_DIR_DEBUG)/AutoGen.h
-*_ELFGCC_IPF_VFRPP_FLAGS          = -x c -E -P -DVFRCOMPILE --include $(DEST_DIR_DEBUG)/$(MODULE_NAME)StrDefs.h
-*_ELFGCC_IPF_RC_FLAGS             = DEF(GCC_IPF_RC_FLAGS)
 
 
 ####################################################################################
@@ -2950,13 +2752,13 @@ NOOPT_MYTOOLS_IPF_DLINK_FLAGS     = /NOLOGO /NODEFAULTLIB /LTCG /DLL /OPT:REF /O
 ##################
 *_MYTOOLS_EBC_*_FAMILY            = INTEL
 
-*_MYTOOLS_EBC_MAKE_PATH           = DEF(VS2005_BIN)\nmake.exe
+*_MYTOOLS_EBC_MAKE_PATH           = DEF(VS2008_BIN)\nmake.exe
 *_MYTOOLS_EBC_PP_PATH             = DEF(EBC_BIN)\iec.exe
 *_MYTOOLS_EBC_VFRPP_PATH          = DEF(EBC_BIN)\iec.exe
 *_MYTOOLS_EBC_CC_PATH             = DEF(EBC_BIN)\iec.exe
 *_MYTOOLS_EBC_SLINK_PATH          = DEF(EBC_BIN)\link.exe
 *_MYTOOLS_EBC_DLINK_PATH          = DEF(EBC_BIN)\link.exe
-*_MYTOOLS_EBC_RC_PATH             = DEF(VS2005_BIN)\rc.exe
+*_MYTOOLS_EBC_RC_PATH             = DEF(VS2008_BIN)\rc.exe
 
 *_MYTOOLS_EBC_MAKE_FLAGS          = /nologo
 *_MYTOOLS_EBC_PP_FLAGS            = /nologo /E /TC /FIAutoGen.h
