@@ -57,11 +57,11 @@ DEFINE WINDDK_BIN64               = C:\WINDDK\3790.1830\bin\win64\x86
 
 # WINSDK
 DEFINE VS2008_WINSDK_BIN          = c:\Program Files\Microsoft SDKs\Windows\v6.0A\bin
-DEFINE VS2008_WINSDKx86_BIN       = c:\Program Files (x86)\Microsoft SDKs\Windows\v6.0A\bin
+DEFINE VS2008x86_WINSDK_BIN       = c:\Program Files (x86)\Microsoft SDKs\Windows\v6.0A\bin
 DEFINE VS2010_WINSDK_BIN          = c:\Program Files\Microsoft SDKs\Windows\v7.0A\Bin
-DEFINE VS2010_WINSDKx86_BIN       = c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin
+DEFINE VS2010x86_WINSDK_BIN       = c:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\Bin
 DEFINE VS2015_WINSDK_BIN          = c:\Program Files\Windows Kits\8.1\bin\x86\
-DEFINE VS2015_WINSDKx86_BIN       = c:\Program Files (x86)\Windows Kits\8.1\bin\x64
+DEFINE VS2015x86_WINSDK_BIN       = c:\Program Files (x86)\Windows Kits\8.1\bin\x64
 
 # ASL
 DEFINE WIN_ASL_BIN_DIR            = C:\ASL
@@ -610,7 +610,7 @@ RELEASE_VS2008xASL_IPF_DLINK_FLAGS      = /NOLOGO /NODEFAULTLIB /LTCG /DLL /OPT:
 
 *_VS2008x86_*_MAKE_PATH                 = DEF(VS2008x86_BIN)\nmake.exe
 *_VS2008x86_*_MAKE_FLAG                 = /nologo
-*_VS2008x86_*_RC_PATH                   = DEF(VS2008_WINSDKx86_BIN)\rc.exe
+*_VS2008x86_*_RC_PATH                   = DEF(VS2008x86_WINSDK_BIN)\rc.exe
 
 *_VS2008x86_*_MAKE_FLAGS                = /nologo
 *_VS2008x86_*_SLINK_FLAGS               = /NOLOGO /LTCG
@@ -753,7 +753,7 @@ NOOPT_VS2008x86_IPF_DLINK_FLAGS         = /NOLOGO /NODEFAULTLIB /LTCG /DLL /OPT:
 
 *_VS2008x86xASL_*_MAKE_PATH             = DEF(VS2008x86_BIN)\nmake.exe
 *_VS2008x86xASL_*_MAKE_FLAG             = /nologo
-*_VS2008x86xASL_*_RC_PATH               = DEF(VS2008_WINSDKx86_BIN)\rc.exe
+*_VS2008x86xASL_*_RC_PATH               = DEF(VS2008x86_WINSDK_BIN)\rc.exe
 
 *_VS2008x86xASL_*_MAKE_FLAGS            = /nologo
 *_VS2008x86xASL_*_SLINK_FLAGS           = /NOLOGO /LTCG
@@ -1189,7 +1189,7 @@ RELEASE_VS2010xASL_IPF_DLINK_FLAGS      = /NOLOGO /NODEFAULTLIB /LTCG /DLL /OPT:
 
 *_VS2010x86_*_MAKE_PATH                 = DEF(VS2010x86_BIN)\nmake.exe
 *_VS2010x86_*_MAKE_FLAG                 = /nologo
-*_VS2010x86_*_RC_PATH                   = DEF(VS2010_WINSDKx86_BIN)\rc.exe
+*_VS2010x86_*_RC_PATH                   = DEF(VS2010x86_WINSDK_BIN)\rc.exe
 
 *_VS2010x86_*_MAKE_FLAGS                = /nologo
 *_VS2010x86_*_SLINK_FLAGS               = /NOLOGO /LTCG
@@ -1332,7 +1332,7 @@ RELEASE_VS2010x86_IPF_DLINK_FLAGS       = /NOLOGO /NODEFAULTLIB /LTCG /DLL /OPT:
 
 *_VS2010x86xASL_*_MAKE_PATH             = DEF(VS2010x86_BIN)\nmake.exe
 *_VS2010x86xASL_*_MAKE_FLAG             = /nologo
-*_VS2010x86xASL_*_RC_PATH               = DEF(VS2010_WINSDKx86_BIN)\rc.exe
+*_VS2010x86xASL_*_RC_PATH               = DEF(VS2010x86_WINSDK_BIN)\rc.exe
 
 *_VS2010x86xASL_*_MAKE_FLAGS            = /nologo
 *_VS2010x86xASL_*_SLINK_FLAGS           = /NOLOGO /LTCG
@@ -1712,7 +1712,7 @@ RELEASE_VS2015xASL_X64_DLINK_FLAGS      = /NOLOGO /NODEFAULTLIB /IGNORE:4001 /IG
 
 *_VS2015x86_*_MAKE_PATH                 = DEF(VS2015x86_BIN)\nmake.exe
 *_VS2015x86_*_MAKE_FLAG                 = /nologo
-*_VS2015x86_*_RC_PATH                   = DEF(VS2015_WINSDKx86_BIN)\rc.exe
+*_VS2015x86_*_RC_PATH                   = DEF(VS2015x86_WINSDK_BIN)\rc.exe
 
 *_VS2015x86_*_MAKE_FLAGS                = /nologo
 *_VS2015x86_*_SLINK_FLAGS               = /NOLOGO /LTCG
@@ -1827,7 +1827,7 @@ RELEASE_VS2015x86_X64_DLINK_FLAGS       = /NOLOGO /NODEFAULTLIB /IGNORE:4001 /IG
 
 *_VS2015x86xASL_*_MAKE_PATH             = DEF(VS2015x86_BIN)\nmake.exe
 *_VS2015x86xASL_*_MAKE_FLAG             = /nologo
-*_VS2015x86xASL_*_RC_PATH               = DEF(VS2015_WINSDKx86_BIN)\rc.exe
+*_VS2015x86xASL_*_RC_PATH               = DEF(VS2015x86_WINSDK_BIN)\rc.exe
 
 *_VS2015x86xASL_*_MAKE_FLAGS            = /nologo
 *_VS2015x86xASL_*_SLINK_FLAGS           = /NOLOGO /LTCG
@@ -2630,8 +2630,8 @@ RELEASE_RVCTLINUX_ARM_CC_FLAGS    = $(ARCHCC_FLAGS) $(PLATFORM_FLAGS) --diag_sup
 ####################################################################################
 #
 # MYTOOLS
-#   IA32 - Microsoft Visual Studio 2008 Team Suite
-#   X64  - Microsoft Visual Studio 2008 Team Suite
+#   IA32 - Microsoft Visual Studio 2010 Team Suite
+#   X64  - Microsoft Visual Studio 2010 Team Suite
 #   IPF  - Microsoft Windows DDK 3790.1830
 #   EBC  - Intel EFI Byte Code Compiler
 #
@@ -2655,25 +2655,25 @@ RELEASE_RVCTLINUX_ARM_CC_FLAGS    = $(ARCHCC_FLAGS) $(PLATFORM_FLAGS) --diag_sup
 *_MYTOOLS_*_PP_FLAGS              = /nologo /E /TC /FIAutoGen.h
 *_MYTOOLS_*_SLINK_FLAGS           = /nologo /LTCG
 
-*_MYTOOLS_*_ASM16_PATH            = DEF(VS2008_BIN)\ml.exe
+*_MYTOOLS_*_ASM16_PATH            = DEF(VS2010x86_BIN)\ml.exe
 
 ##################
 # IA32 definitions
 ##################
-*_MYTOOLS_IA32_*_DLL              = DEF(VS2008_DLL)
+*_MYTOOLS_IA32_*_DLL              = DEF(VS2010x86_DLL)
 
-*_MYTOOLS_IA32_MAKE_PATH          = DEF(VS2008_BIN)\nmake.exe
-*_MYTOOLS_IA32_CC_PATH            = DEF(VS2008_BIN)\cl.exe
-*_MYTOOLS_IA32_SLINK_PATH         = DEF(VS2008_BIN)\lib.exe
-*_MYTOOLS_IA32_DLINK_PATH         = DEF(VS2008_BIN)\link.exe
-*_MYTOOLS_IA32_PP_PATH            = DEF(VS2008_BIN)\cl.exe
-*_MYTOOLS_IA32_VFRPP_PATH         = DEF(VS2008_BIN)\cl.exe
-*_MYTOOLS_IA32_APP_PATH           = DEF(VS2008_BIN)\cl.exe
-*_MYTOOLS_IA32_ASM_PATH           = DEF(VS2008_BIN)\ml.exe
-*_MYTOOLS_IA32_ASLCC_PATH         = DEF(VS2008_BIN)\cl.exe
-*_MYTOOLS_IA32_ASLPP_PATH         = DEF(VS2008_BIN)\cl.exe
-*_MYTOOLS_IA32_ASLDLINK_PATH      = DEF(VS2008_BIN)\link.exe
-*_MYTOOLS_IA32_RC_PATH            = DEF(VS2008_WINSDKx86_BIN)\rc.exe
+*_MYTOOLS_IA32_MAKE_PATH          = DEF(VS2010x86_BIN)\nmake.exe
+*_MYTOOLS_IA32_CC_PATH            = DEF(VS2010x86_BIN)\cl.exe
+*_MYTOOLS_IA32_SLINK_PATH         = DEF(VS2010x86_BIN)\lib.exe
+*_MYTOOLS_IA32_DLINK_PATH         = DEF(VS2010x86_BIN)\link.exe
+*_MYTOOLS_IA32_PP_PATH            = DEF(VS2010x86_BIN)\cl.exe
+*_MYTOOLS_IA32_VFRPP_PATH         = DEF(VS2010x86_BIN)\cl.exe
+*_MYTOOLS_IA32_APP_PATH           = DEF(VS2010x86_BIN)\cl.exe
+*_MYTOOLS_IA32_ASM_PATH           = DEF(VS2010x86_BIN)\ml.exe
+*_MYTOOLS_IA32_ASLCC_PATH         = DEF(VS2010x86_BIN)\cl.exe
+*_MYTOOLS_IA32_ASLPP_PATH         = DEF(VS2010x86_BIN)\cl.exe
+*_MYTOOLS_IA32_ASLDLINK_PATH      = DEF(VS2010x86_BIN)\link.exe
+*_MYTOOLS_IA32_RC_PATH            = DEF(VS2010x86_WINSDK_BIN)\rc.exe
 
   DEBUG_MYTOOLS_IA32_CC_FLAGS     = /nologo /c /WX /GS- /W4 /Gs32768 /Gy /D UNICODE /O1ib2 /GL /FIAutoGen.h /EHs-c- /GR- /GF /Zi /Gm
 RELEASE_MYTOOLS_IA32_CC_FLAGS     = /nologo /c /WX /GS- /W4 /Gs32768 /Gy /D UNICODE /O1ib2 /GL /FIAutoGen.h /EHs-c- /GR- /GF
@@ -2691,20 +2691,20 @@ NOOPT_MYTOOLS_IA32_DLINK_FLAGS    = /NOLOGO /NODEFAULTLIB /IGNORE:4001 /OPT:REF 
 ##################
 # x64 definitions
 ##################
-*_MYTOOLS_X64_*_DLL               = DEF(VS2008_DLL)
+*_MYTOOLS_X64_*_DLL               = DEF(VS2010x86_DLL)
 
-*_MYTOOLS_X64_MAKE_PATH           = DEF(VS2008_BIN)\nmake.exe
-*_MYTOOLS_X64_CC_PATH             = DEF(VS2008_BINX64)\cl.exe
-*_MYTOOLS_X64_SLINK_PATH          = DEF(VS2008_BINX64)\lib.exe
-*_MYTOOLS_X64_DLINK_PATH          = DEF(VS2008_BINX64)\link.exe
-*_MYTOOLS_X64_PP_PATH             = DEF(VS2008_BINX64)\cl.exe
-*_MYTOOLS_X64_VFRPP_PATH          = DEF(VS2008_BINX64)\cl.exe
-*_MYTOOLS_X64_APP_PATH            = DEF(VS2008_BINX64)\cl.exe
-*_MYTOOLS_X64_ASM_PATH            = DEF(VS2008_BINX64)\ml64.exe
-*_MYTOOLS_X64_ASLCC_PATH          = DEF(VS2008_BINX64)\cl.exe
-*_MYTOOLS_X64_ASLPP_PATH          = DEF(VS2008_BINX64)\cl.exe
-*_MYTOOLS_X64_ASLDLINK_PATH       = DEF(VS2008_BINX64)\link.exe
-*_MYTOOLS_X64_RC_PATH             = DEF(VS2008_WINSDK_BIN)\rc.exe
+*_MYTOOLS_X64_MAKE_PATH           = DEF(VS2010x86_BIN)\nmake.exe
+*_MYTOOLS_X64_CC_PATH             = DEF(VS2010x86_BINX64)\cl.exe
+*_MYTOOLS_X64_SLINK_PATH          = DEF(VS2010x86_BINX64)\lib.exe
+*_MYTOOLS_X64_DLINK_PATH          = DEF(VS2010x86_BINX64)\link.exe
+*_MYTOOLS_X64_PP_PATH             = DEF(VS2010x86_BINX64)\cl.exe
+*_MYTOOLS_X64_VFRPP_PATH          = DEF(VS2010x86_BINX64)\cl.exe
+*_MYTOOLS_X64_APP_PATH            = DEF(VS2010x86_BINX64)\cl.exe
+*_MYTOOLS_X64_ASM_PATH            = DEF(VS2010x86_BINX64)\ml64.exe
+*_MYTOOLS_X64_ASLCC_PATH          = DEF(VS2010x86_BINX64)\cl.exe
+*_MYTOOLS_X64_ASLPP_PATH          = DEF(VS2010x86_BINX64)\cl.exe
+*_MYTOOLS_X64_ASLDLINK_PATH       = DEF(VS2010x86_BINX64)\link.exe
+*_MYTOOLS_X64_RC_PATH             = DEF(VS2010x86_WINSDK_BIN)\rc.exe
 
   DEBUG_MYTOOLS_X64_CC_FLAGS      = /nologo /c /WX /GS- /W4 /Gs32768 /Gy /D UNICODE /O1ib2 /GL /FIAutoGen.h /EHs-c- /GR- /GF /Zi /Gm
 RELEASE_MYTOOLS_X64_CC_FLAGS      = /nologo /c /WX /GS- /W4 /Gs32768 /Gy /D UNICODE /O1ib2 /GL /FIAutoGen.h /EHs-c- /GR- /GF
@@ -2752,13 +2752,13 @@ NOOPT_MYTOOLS_IPF_DLINK_FLAGS     = /NOLOGO /NODEFAULTLIB /LTCG /DLL /OPT:REF /O
 ##################
 *_MYTOOLS_EBC_*_FAMILY            = INTEL
 
-*_MYTOOLS_EBC_MAKE_PATH           = DEF(VS2008_BIN)\nmake.exe
+*_MYTOOLS_EBC_MAKE_PATH           = DEF(VS2010x86_BIN)\nmake.exe
 *_MYTOOLS_EBC_PP_PATH             = DEF(EBC_BIN)\iec.exe
 *_MYTOOLS_EBC_VFRPP_PATH          = DEF(EBC_BIN)\iec.exe
 *_MYTOOLS_EBC_CC_PATH             = DEF(EBC_BIN)\iec.exe
 *_MYTOOLS_EBC_SLINK_PATH          = DEF(EBC_BIN)\link.exe
 *_MYTOOLS_EBC_DLINK_PATH          = DEF(EBC_BIN)\link.exe
-*_MYTOOLS_EBC_RC_PATH             = DEF(VS2008_BIN)\rc.exe
+*_MYTOOLS_EBC_RC_PATH             = DEF(VS2010x86_BIN)\rc.exe
 
 *_MYTOOLS_EBC_MAKE_FLAGS          = /nologo
 *_MYTOOLS_EBC_PP_FLAGS            = /nologo /E /TC /FIAutoGen.h

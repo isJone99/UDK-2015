@@ -71,6 +71,9 @@ if /I "%1"=="--help"  goto error
 goto loop
 ::endloop
 
+@REM when using MYTOOLS, set VsVar here.
+if NOT defined VsVar set VsVar=VS2010x86
+
 :edksetup
 if NOT defined EdkSetupFlag (
   set EdkSetupFlag=TRUE
