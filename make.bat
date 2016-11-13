@@ -1,3 +1,16 @@
+@REM @file
+@REM   Windows batch file to setup the all required environment variables.
+@REM
+@REM Copyright (c) 2016, EfiKarl. All rights reserved.
+
+@REM This program and the accompanying materials
+@REM are licensed and made available under the terms and conditions of the BSD License
+@REM which accompanies this distribution.  The full text of the license may be found at
+@REM http://opensource.org/licenses/bsd-license.php
+@REM
+@REM THE PROGRAM IS DISTRIBUTED UNDER THE BSD LICENSE ON AN "AS IS" BASIS,
+@REM WITHOUT WARRANTIES OR REPRESENTATIONS OF ANY KIND, EITHER EXPRESS OR IMPLIED.
+@REM
 @echo off
 if /I "%1"=="-h"      goto error
 if /I "%1"=="-help"   goto error
@@ -13,18 +26,8 @@ if /I "%1"=="--help"  goto error
     shift
     goto loop
   )
-  if /I "%1"=="RawTools" (
-    set EdkSetupOption=RawTools
-    shift
-    goto loop
-  )
-  if /I "%1"=="BuilTools" (
+  if /I "%1"=="BuildTools" (
     set EdkSetupOption=BuildTools
-    shift
-    goto loop
-  )
-  if /I "%1"=="RebuildTools" (
-    set EdkSetupOption=RebuildTools
     shift
     goto loop
   )
@@ -49,6 +52,7 @@ if /I "%1"=="--help"  goto error
   )
   if /I "%1"=="-t" (
     set TOOLCHAIN=%1 %2
+    set VsVar=%2
     shift
     shift
     goto loop
@@ -63,13 +67,16 @@ if /I "%1"=="--help"  goto error
     shift
     goto loop
   )
+  if "%1"=="" (goto edksetup) else (shift)
+goto loop
 ::endloop
 
+:edksetup
 if NOT defined EdkSetupFlag (
   set EdkSetupFlag=TRUE
-  call edksetup.bat --nt32 %EdkSetupOption%
+  call edksetup.bat %EdkSetupOption%
 ) else if defined EdkSetupOption (
-  call edksetup.bat --nt32 %EdkSetupOption%
+  call edksetup.bat %EdkSetupOption%
 )
 
 if defined RunFlag      goto run
@@ -95,9 +102,7 @@ goto end
   echo     make [EdkSetupOption] [EdkBuildOption]
   echo.
   echo   [EdkSetupOption] is zero or more of the following:
-  echo     reconfig           --Use tempalte to reconfig EDKII build option.
-  echo     RawTools           --Use python scripts as basetools.
-  echo     RebuildTools       --Use makefile rules to rebuild basetools.
+  echo     ReConfig           --Use tempalte to reconfig EDKII build option.
   echo     BuildTools         --Clean and rebuild basetools.
   echo.
   echo   [EdkBuildOption] is zero or more of the following:
