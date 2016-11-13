@@ -71,10 +71,11 @@ if /I "%1"=="--help"  goto error
 goto loop
 ::endloop
 
+:edksetup
+
 @REM when using MYTOOLS, set VsVar here.
 if NOT defined VsVar set VsVar=VS2010x86
 
-:edksetup
 if NOT defined EdkSetupFlag (
   set EdkSetupFlag=TRUE
   call edksetup.bat %EdkSetupOption%
